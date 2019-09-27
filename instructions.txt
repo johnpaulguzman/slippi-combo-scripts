@@ -1,0 +1,8 @@
+Slippi Combo Video Creation
+
+Making a JSON file that contains the combos
+    put all the .slp files into the local slp directory
+    run the command "node getSlippiCombos.js"
+        the .json file has now been created
+
+Playing the json file in dolphin to watch the combo video. 
