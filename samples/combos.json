@@ -1,0 +1,85 @@
+{
+    "mode": "queue",
+    "replay": "",
+    "isRealTimeMode": false,
+    "outputOverlayFiles": true,
+    "queue": [
+        {
+            "path": "/home/incredibr0/personalProjects/slippiComboVideoGeneration/slp/Game_20190926T181322.slp",
+            "startFrame": 1334,
+            "endFrame": 1989,
+            "gameStartAt": "2019-09-26T18:13:22",
+            "gameStation": "Incredibr0_Wii",
+            "additional": {
+                "characterId": 0,
+                "opponentCharacterId": 0
+            }
+        },
+        {
+            "path": "/home/incredibr0/personalProjects/slippiComboVideoGeneration/slp/Game_20190926T181037.slp",
+            "startFrame": 7430,
+            "endFrame": 8203,
+            "gameStartAt": "2019-09-26T18:10:37",
+            "gameStation": "Incredibr0_Wii",
+            "additional": {
+                "characterId": 0,
+                "opponentCharacterId": 0
+            }
+        },
+        {
+            "path": "/home/incredibr0/personalProjects/slippiComboVideoGeneration/slp/Game_20190926T200611.slp",
+            "startFrame": 453,
+            "endFrame": 1200,
+            "gameStartAt": "2019-09-26T20:06:11",
+            "gameStation": "Incredibr0_Wii",
+            "additional": {
+                "characterId": 20,
+                "opponentCharacterId": 2
+            }
+        },
+        {
+            "path": "/home/incredibr0/personalProjects/slippiComboVideoGeneration/slp/Game_20190926T171859.slp",
+            "startFrame": 3245,
+            "endFrame": 3911,
+            "gameStartAt": "2019-09-26T17:18:59",
+            "gameStation": "Incredibr0_Wii",
+            "additional": {
+                "characterId": 0,
+                "opponentCharacterId": 2
+            }
+        },
+        {
+            "path": "/home/incredibr0/personalProjects/slippiComboVideoGeneration/slp/Game_20190926T200611.slp",
+            "startFrame": 2566,
+            "endFrame": 3192,
+            "gameStartAt": "2019-09-26T20:06:11",
+            "gameStation": "Incredibr0_Wii",
+            "additional": {
+                "characterId": 20,
+                "opponentCharacterId": 2
+            }
+        },
+        {
+            "path": "/home/incredibr0/personalProjects/slippiComboVideoGeneration/slp/Game_20190926T200118.slp",
+            "startFrame": 3868,
+            "endFrame": 4638,
+            "gameStartAt": "2019-09-26T20:01:18",
+            "gameStation": "Incredibr0_Wii",
+            "additional": {
+                "characterId": 20,
+                "opponentCharacterId": 2
+            }
+        },
+        {
+            "path": "/home/incredibr0/personalProjects/slippiComboVideoGeneration/slp/Game_20190926T174641.slp",
+            "startFrame": 8969,
+            "endFrame": 9638,
+            "gameStartAt": "2019-09-26T17:46:41",
+            "gameStation": "Incredibr0_Wii",
+            "additional": {
+                "characterId": 9,
+                "opponentCharacterId": 0
+            }
+        }
+    ]
+}

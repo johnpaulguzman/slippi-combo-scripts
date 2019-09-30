@@ -6,3 +6,13 @@ Making a JSON file that contains the combos
         the .json file has now been created
 
 Playing the json file in dolphin to watch the combo video. 
+
+
+
+
+
+
+
+
+
+Possible combo of the week after each of the combos have been created by the script???

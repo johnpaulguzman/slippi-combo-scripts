@@ -4,6 +4,7 @@ const fs = require('fs');
 const moment = require('moment');
 
 // CONFIG
+// NOTE: need to change the paths for the file to make sure that this scrips works with other file locations. 
 const basePath = "D:\\Slippi\\Tournament-Replays\\Pound-2019";
 const dataDumpPath = "C:\\Dolphin\\FM-v5.9-Slippi-r7-Win\\Slippi\\Tournament PXB2\\Temp\\pound-slippi-data-0-9501.json";
 const damageMin = 70;
