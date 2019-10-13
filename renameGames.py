@@ -33,7 +33,7 @@ for filename in listdir('./slp'):
 
         if newFileNameParts != [] and firstChar ==  False:
             firstChar = True
-            newFileNameParts.append('Vs')
+            newFileNameParts.append('-Vs-')
 
 
 
@@ -43,7 +43,6 @@ for filename in listdir('./slp'):
 
 
     # add the time the game was played to the file name so that games with the same characters in it are not overwritten. 
-
     dst += str(tempGame.metadata.date).split(' ')[-1].split('+')[0]
 
     dst += '.slp'
