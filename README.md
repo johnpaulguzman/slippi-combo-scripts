@@ -12,3 +12,7 @@ Run the script by executing the command:
     node (scriptName.js)
 
 The script will then have generated a .json file that can be executed by the Dolphin emulator to watch the combo clips.
+
+These scripts are written in Ubuntu and are designed for use in a Lunix environment. 
+
+Uses py-slippi version () and slp-parser-js version ().
