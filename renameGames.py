@@ -14,6 +14,8 @@
 NOTE: there may be a difference when parsing replays captured from a Wii vs a connection to a PC. Make sure that the PC captured replays are parsed the same as the Wii captured files. 
 
 TODO: Rename replays against CPUs using the tag CPU for the character to make sure it is not a human player. 
+TODO: create functions generate_singles_game_name() and generate_doubles_game_name()
+TODO: detect if the program is being run on linux or windows for changing the / to \ in windows for renaming files properly. 
 
 
 '''
@@ -21,8 +23,13 @@ TODO: Rename replays against CPUs using the tag CPU for the character to make su
 
 
 from slippi import *
-from os import walk, listdir, rename
+from os import walk, listdir, rename, path
 
+def generate_singles_game_name(slippiFile):
+    pass
+
+def generate_doubles_game_name(slippiFile):
+    pass
 
 def generate_file_name(slippiFile):
     '''
@@ -64,9 +71,10 @@ def generate_file_name(slippiFile):
 
                 
     # Could I do list comprehension here to replace the multiple different characters with nothing?
-    newFile += '<' + str(slippiFile.metadata.date).split('+')[0].replace(' ', '').replace('-', '').replace(':', '').split('.')[0] + '>'
+    # NOTE: the previous format of <date>.slp is not allowed on the windows platform, so it is now replaced with _date.slp
+    newFile += '_' + str(slippiFile.metadata.date).split('+')[0].replace(' ', '').replace('-', '').replace(':', '').split('.')[0] #  + '_'
 
-
+    #print(newFile)
 
     return newFile
 
@@ -75,6 +83,8 @@ def rename_files_in_folder(folder):
     '''
     this function accepts the name of a folder as a string and will rename all the .slp files in the directory and sub-directories. 
     '''
+
+    print('folder that contains all the slippi files: {}'.format(folder))
 
     for root, dirs, files in walk(folder):
         # root represents the current directory that is being processed
@@ -104,8 +114,11 @@ def rename_files_in_folder(folder):
 
             if curr.split('.')[-1] == 'slp':
 
-                currFilePath = root + '/' + curr
+                # NOTE: when building the pathname, we can use the os.path.join() function to insert the '/' characters into the path automatically. 
 
+                #currFilePath = root + '/' + curr
+
+                currFilePath = path.join(root, curr)
 
                 #print('can process file {}'.format(currFilePath))
 
@@ -135,7 +148,7 @@ def rename_files_in_folder(folder):
 
                     if currentPlayers != 2:
                         # TODO: implement renaming free-for-all matches with just character names, not tags.
-                        print("{} is an FFA or Teams with more than 2 players, cannot rename.".format(
+                        print("{} is a FFA with more than 2 players, cannot rename.".format(
                             curr))
 
                     else: 
@@ -147,21 +160,24 @@ def rename_files_in_folder(folder):
                             newFileName = ''
                             newFileName = generate_file_name(tempGame) + '.slp'
 
+                            #print('just created a file name: {}'.format(newFileName))
+
                             #newFileName += '.slp'
 
                             #print("new file name: {}".format(newFileName))
 
-                            newFileName = root + '/' + newFileName
+                            #newFileName = root + '/' + newFileName
+                            newFileName = path.join(root, newFileName)
 
-                            print('old file name: {}'.format(currFilePath))
-                            print('new file name: {}\n\n'.format(newFileName))
+                           # print('old file name: {}'.format(currFilePath))
+                           # print('new file name: {}\n\n'.format(newFileName))
 
-                            rename(currFilePath, newFileName)
-                            #print('renamed the file')
+                            rename(currFilePath, newFileName) # note: this line here is causing issues when running on windows... I wonder why this is happening... This might be because of the file path differences between Linux and windows...
+                            #print('successfully renamed the file')
 
                         except:
                             print("could not process file {}".format(curr))
-
+                           
                 else:
                     print('{} is a teams game'.format(curr))
 
@@ -172,9 +188,11 @@ def rename_files_in_folder(folder):
 
 # NOTE: this is where the program starts executing when run as a command line program. 
 # TODO: change the folder input parameter for the function to be based on the command line argument that the user has given rather than being a hard coded directory name. 
-rename_files_in_folder('./slp')
+#rename_files_in_folder('.\slp') # NOTE: '/' for linux, '\' for windows. 
 
+directory = path.join(path.dirname(path.realpath(__file__)), 'slp')
 
+rename_files_in_folder(directory)
 
 """
 # iterate over the files in a directory
