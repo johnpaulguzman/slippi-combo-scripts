@@ -25,16 +25,54 @@ TODO: detect if the program is being run on linux or windows for changing the / 
 from slippi import *
 from os import walk, listdir, rename, path
 
-def generate_singles_game_name(slippiFile):
+def generate_file_name(slippiFile):
+    '''
+    
+    '''
+    print('implement the file name function')
+
     pass
 
 def generate_doubles_game_name(slippiFile):
+    '''
+    Team Naming Guide Idea: TeamGreen(Falco+(H E L P))-Vs-TeamBlue(CaptainFalcon+(S E L F))_datetime.slp
+    TeamColor(char1(TAG)-char2(TAG))-Vs-TeamColor(char3(TAG)-char4(TAG))_datetime.slp
+    '''
+    print('implement the doubles function')
     pass
 
-def generate_file_name(slippiFile):
+def generate_free_for_all_game_name(slippiFile):
+    '''
+    iterate through all the players in the game
+    build a list of strings of the character names and '-Vs-'
+    Ex) Fox-Vs-Falco-Vs-Sheik_20191010143456.slp
+
+
+    '''
+    print('implement the free-for-all function')
+
+    pass
+
+def generate_singles_game_name(slippiFile):
     '''
     this function will build a string based on the characters used in the game. 
-    NOTE: the .slp file extension is NOT added to the string in this function.
+
+    TODO: create cases in this function in the future to rename files based on the type of game being played. 
+        ex) singles, doubles, free for all. 
+
+    if is teams game:
+        generate_doubles_game_name()
+
+    else:
+
+        if 2 players in game:
+            generate_singles_game_name()
+
+        elif more than 2 players in game:
+            # either a 3 or 4 person free for all match. 
+            generate_free_for_all_game_name()
+
+
     '''
 
     newFile = ''
@@ -73,6 +111,8 @@ def generate_file_name(slippiFile):
     # Could I do list comprehension here to replace the multiple different characters with nothing?
     # NOTE: the previous format of <date>.slp is not allowed on the windows platform, so it is now replaced with _date.slp
     newFile += '_' + str(slippiFile.metadata.date).split('+')[0].replace(' ', '').replace('-', '').replace(':', '').split('.')[0] #  + '_'
+
+    newFile += '.slp'
 
     #print(newFile)
 
@@ -158,7 +198,7 @@ def rename_files_in_folder(folder):
                             #print('the game only has 2 players')
 
                             newFileName = ''
-                            newFileName = generate_file_name(tempGame) + '.slp'
+                            newFileName = generate_singles_game_name(tempGame)
 
                             #print('just created a file name: {}'.format(newFileName))
 
@@ -169,8 +209,8 @@ def rename_files_in_folder(folder):
                             #newFileName = root + '/' + newFileName
                             newFileName = path.join(root, newFileName)
 
-                           # print('old file name: {}'.format(currFilePath))
-                           # print('new file name: {}\n\n'.format(newFileName))
+                            print('old file name: {}'.format(currFilePath))
+                            print('new file name: {}\n\n'.format(newFileName))
 
                             rename(currFilePath, newFileName) # note: this line here is causing issues when running on windows... I wonder why this is happening... This might be because of the file path differences between Linux and windows...
                             #print('successfully renamed the file')
