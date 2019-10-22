@@ -15,7 +15,7 @@ NOTE: there may be a difference when parsing replays captured from a Wii vs a co
 
 TODO: Rename replays against CPUs using the tag CPU for the character to make sure it is not a human player. 
 TODO: create functions generate_singles_game_name() and generate_doubles_game_name()
-TODO: detect if the program is being run on linux or windows for changing the / to \ in windows for renaming files properly. 
+
 
 
 '''
@@ -27,7 +27,21 @@ from os import walk, listdir, rename, path
 
 def generate_file_name(slippiFile):
     '''
-    
+    TODO: create cases in this function in the future to rename files based on the type of game being played. 
+        ex) singles, doubles, free for all. 
+
+    if is teams game:
+        generate_doubles_game_name()
+
+    else:
+
+        if 2 players in game:
+            generate_singles_game_name()
+
+        elif more than 2 players in game:
+            # either a 3 or 4 person free for all match. 
+            generate_free_for_all_game_name()
+
     '''
     print('implement the file name function')
 
@@ -57,21 +71,7 @@ def generate_singles_game_name(slippiFile):
     '''
     this function will build a string based on the characters used in the game. 
 
-    TODO: create cases in this function in the future to rename files based on the type of game being played. 
-        ex) singles, doubles, free for all. 
-
-    if is teams game:
-        generate_doubles_game_name()
-
-    else:
-
-        if 2 players in game:
-            generate_singles_game_name()
-
-        elif more than 2 players in game:
-            # either a 3 or 4 person free for all match. 
-            generate_free_for_all_game_name()
-
+    
 
     '''
 
@@ -81,8 +81,6 @@ def generate_singles_game_name(slippiFile):
     newFileNameParts = []
 
     firstChar = False
-
-    #curPlatform = tempGame.metadata.platform
 
     # iterate over players in the game
     for player in slippiFile.start.players:
@@ -104,9 +102,6 @@ def generate_singles_game_name(slippiFile):
         newFile += item
 
     # appending the date and time that the game was played to reduce chance of overwriting files
-    # TODO: remove the trailing time part that is added when processing files captured from a PC.
-        # reorganize the program: have a flag for processing Console Replays and processing PC replays. 
-
                 
     # Could I do list comprehension here to replace the multiple different characters with nothing?
     # NOTE: the previous format of <date>.slp is not allowed on the windows platform, so it is now replaced with _date.slp
