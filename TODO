@@ -1,3 +1,10 @@
 
-Ideas:
-  ☐ make a python script that copies and moves all games with a certain character into a folder all themselves. Ex) all C Falcon Sets in a folder, all Fox sets in a folder, but there will be more copies of the games after this script is run. 
+renameGames.py TODO List:
+☐ rename CPU games by adding the CPU string to the characters name
+☐ implement the generate_file_names() function that uses all the other generate_file_name() functions in it and returns the string to the rename_files_in_folder() function. 
+☐ add CPU checking in doubles function.
+☐ improve try and except blocks to be as specific as possible when an error occurs in program execution. 
+☐ make sure that teams renaming works for non-2v2 teams situations. 
+☐ reorganize so that the path.join() method is only called once in the program.
+☐ look into why code will break when come files are processed. what is causing these issues?
+☐ add command line arguments for specific directory renaming. 

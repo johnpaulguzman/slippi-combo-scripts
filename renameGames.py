@@ -51,9 +51,130 @@ def generate_doubles_game_name(slippiFile):
     '''
     Team Naming Guide Idea: TeamGreen(Falco+(H E L P))-Vs-TeamBlue(CaptainFalcon+(S E L F))_datetime.slp
     TeamColor(char1(TAG)-char2(TAG))-Vs-TeamColor(char3(TAG)-char4(TAG))_datetime.slp
+    
+
+    TODO: test the execution of the doubles renaming function. stops executing when hitting (if player.team == firstTeamPlayers[0].team) [Nonetype object has no attribute team]
+
+    TODO: check if any of the players in the game are CPUs. If there are any CPUs, add that in the filename. 
+
+    TODO: improve the try except blocks in the program to further locate where the program is having difficulties executing. 
+
+
     '''
-    print('implement the doubles function')
-    pass
+
+    # NOTE: assuming that all doubles games are full, meaning two teams of 2 players each. 
+
+    newFile = ''
+    firstTeamPlayers = []
+    secondTeamPlayers = []
+
+    firstTeamParts = []
+    secondTeamParts = []
+
+    # the team that the player is on is in the Player object of the game file. 
+
+    # TODO: check that there are 4 players in this game. this teams game could be 2v1, which could cause an issue. it also might not cause an issue. 
+
+    # add the first player to the lists. Compare all other players to this player for building the lists of players in the same team. 
+    firstTeamPlayers.append(slippiFile.start.players[0])
+
+    for player in slippiFile.start.players[1:]:
+
+        if player != None:
+
+            if player.team == firstTeamPlayers[0].team:
+                firstTeamPlayers.append(player)
+            else:
+                secondTeamPlayers.append(player)
+
+
+    # players have been separated by team, now build the list of strings for the team names. 
+
+    firstPlayer = False
+
+
+    # build the first team list of strings
+
+    # remove the '.' between the team and the color strings. 
+    [firstTeamParts.append(item) for item in str(firstTeamPlayers[0].team).split('.')]
+
+    firstTeamParts.append('(')
+
+    for player in firstTeamPlayers:
+
+        if player.tag != '':
+            # add only the tag of the player to the filename
+            firstTeamParts.append(player.tag)
+
+
+        else:
+            # add only the character name to the filename
+
+            [firstTeamParts.append(item.lower().capitalize()) for item in str(player.character).split('.')[-1].split('_')]
+
+        firstTeamParts.append('-')
+
+    firstTeamParts.pop()
+
+
+    firstTeamParts.append(')')
+
+
+
+    # build the second team list of names
+    # remove the '.' between the team and the color strings. 
+    [secondTeamParts.append(item) for item in str(secondTeamPlayers[0].team).split('.')]
+
+    secondTeamParts.append('(')
+
+    for player in secondTeamPlayers:
+
+        if player.tag != '':
+            # add only the tag of the player to the filename
+            secondTeamParts.append(player.tag)
+
+
+        else:
+            # add only the character name to the filename
+
+            [secondTeamParts.append(item.lower().capitalize()) for item in str(player.character).split('.')[-1].split('_')]
+
+
+        secondTeamParts.append('-')
+
+    secondTeamParts.pop()
+
+    secondTeamParts.append(')')
+
+
+    # append first team strings to file name
+    for item in firstTeamParts:
+        newFile += item
+
+    # append '-Vs-' between the team names
+    newFile += '-Vs-'
+
+    for item in secondTeamParts:
+        newFile += item
+
+
+    newFile += '_' + str(slippiFile.metadata.date).split('+')[0].replace(' ', '').replace('-', '').replace(':', '').split('.')[0]    
+
+
+
+    newFile += '.slp'
+
+    #print('New Doubles match name: {}'.format(newFile))
+
+
+    #print(firstTeamPlayers)
+    print('\n\n\n\n\n')
+    #print(secondTeamPlayers)
+
+
+    return newFile
+
+
 
 def generate_free_for_all_game_name(slippiFile):
     '''
@@ -63,9 +184,50 @@ def generate_free_for_all_game_name(slippiFile):
 
 
     '''
-    print('implement the free-for-all function')
+    #print('implement the free-for-all function')
 
-    pass
+    newFile = ''
+
+    # list used to build the new Filename
+    newFileNameParts = []
+
+    newFileNameParts.append('FFA_')
+
+
+    #firstChar = False
+
+    # iterate over players in the game
+    for player in slippiFile.start.players:
+
+        # append the formatted character name from the character object to the list
+        [newFileNameParts.append(item.lower().capitalize()) for item in str(player.character).split('.')[-1].split('_')] if player != None else None
+
+        # append the player tag to the list if they were using one
+        #newFileNameParts.append('(' + player.tag + ')') if player != None and player.tag != '' else None
+
+        # append the '-vs-' string to the list no matter what. 
+        newFileNameParts.append('-Vs-') if player != None else None
+
+        
+    # remove the redundant '-vs-' string from the list. 
+    newFileNameParts.pop()
+
+    # Build the new Filename
+    for item in newFileNameParts:
+        newFile += item
+
+    # appending the date and time that the game was played to reduce chance of overwriting files
+                
+    # Could I do list comprehension here to replace the multiple different characters with nothing?
+    # NOTE: the previous format of <date>.slp is not allowed on the windows platform, so it is now replaced with _date.slp
+    newFile += '_' + str(slippiFile.metadata.date).split('+')[0].replace(' ', '').replace('-', '').replace(':', '').split('.')[0] #  + '_'
+
+    newFile += '.slp'
+
+    #print(newFile)
+
+    return newFile
+
 
 def generate_singles_game_name(slippiFile):
     '''
@@ -84,6 +246,10 @@ def generate_singles_game_name(slippiFile):
 
     # iterate over players in the game
     for player in slippiFile.start.players:
+
+        # check that the player is a CPU. add the 'CPU' string to the list if this is true. 
+        if player.type == 1:
+            newFileNameParts.append("CPU")
 
         # append the formatted character name from the character object to the list
         [newFileNameParts.append(item.lower().capitalize()) for item in str(player.character).split('.')[-1].split('_')] if player != None else None
@@ -129,6 +295,9 @@ def rename_files_in_folder(folder):
         # I want to store the file back into the directory that it came from in the directories, and I believe that I will need the root string to do that. 
         #print(root + " " + str(files))
 
+        # TODO: in the future, reorganize the code so that the path.join() method is only called once in this funtion. will make this code cleaner in my opinion. 
+
+
         for curr in files:
             #print(root + curr)
 
@@ -161,6 +330,7 @@ def rename_files_in_folder(folder):
                 try:
 
                     tempGame = Game(currFilePath)
+                    
 
                 except:
                     # TODO: look into why the renaming program breaks here. what exception is being thrown? This might be because of the replay being cut off when the connection was cut. see if there is any way to tell if a file is malformed...
@@ -182,9 +352,19 @@ def rename_files_in_folder(folder):
                     #print('number of players in game: {}'.format(currentPlayers))
 
                     if currentPlayers != 2:
-                        # TODO: implement renaming free-for-all matches with just character names, not tags.
-                        print("{} is a FFA with more than 2 players, cannot rename.".format(
-                            curr))
+                       
+                        ffaFile = ''
+                        ffaFile = generate_free_for_all_game_name(tempGame)
+
+                        ffaFile = path.join(root, ffaFile)
+
+                        #print('old file name: {}'.format(currFilePath))
+                        #print('new file name: {}\n\n'.format(ffaFile))
+
+                        rename(currFilePath, ffaFile)
+
+                        #print('RENAMED A FREE FOR ALL GAME: ')
+
 
                     else: 
 
@@ -204,8 +384,8 @@ def rename_files_in_folder(folder):
                             #newFileName = root + '/' + newFileName
                             newFileName = path.join(root, newFileName)
 
-                            print('old file name: {}'.format(currFilePath))
-                            print('new file name: {}\n\n'.format(newFileName))
+                            #print('old file name: {}'.format(currFilePath))
+                            #print('new file name: {}\n\n'.format(newFileName))
 
                             rename(currFilePath, newFileName) # note: this line here is causing issues when running on windows... I wonder why this is happening... This might be because of the file path differences between Linux and windows...
                             #print('successfully renamed the file')
@@ -214,7 +394,13 @@ def rename_files_in_folder(folder):
                             print("could not process file {}".format(curr))
                            
                 else:
-                    print('{} is a teams game'.format(curr))
+                   
+                    doubles = ''
+                    doubles = generate_doubles_game_name(tempGame)
+
+                    doubles = path.join(root, doubles)
+
+                    rename(currFilePath, doubles)
 
 
             else:
@@ -322,4 +508,4 @@ for filename in listdir('./slp'):
 
 """
 
-print("All files in the /slp/ directory have been renamed.")
+print("All files in the directory have been renamed.")
