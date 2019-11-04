@@ -8,3 +8,5 @@ renameGames.py TODO List:
 ☐ reorganize so that the path.join() method is only called once in the program.
 ☐ look into why code will break when come files are processed. what is causing these issues?
 ☐ add command line arguments for specific directory renaming. 
+
+☐ Game_20190914T141114.slp is ALWAYS causing an issue when trying to rename... figure out why and fix this. 
