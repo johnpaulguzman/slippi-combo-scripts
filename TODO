@@ -10,3 +10,4 @@ renameGames.py TODO List:
 ☐ add command line arguments for specific directory renaming. 
 
 ☐ Game_20190914T141114.slp is ALWAYS causing an issue when trying to rename... figure out why and fix this. 
+☐ NOTE: could all the leftover files after renaming be games that were ended early with an 'l r a start' ? Look into this issue... These files are corrupted after closer looks into them. They might have been caused when the connection between the Wii and the PC was severed improperly. 
