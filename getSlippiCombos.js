@@ -17,7 +17,9 @@ const fdCGers = [9, 12, 13, 22]; // Marth, Peach, Pikachu, and Doc // These are 
 
 const filterByNames = [] // add names as strings to this array (checks both netplay name and nametags). `["Nikki", "Metonym", "metonym"]`
 
-var charId = 15; // falco see ids in https://github.com/Achilles1515/20XX-Melee-Hack-Pack/blob/master/SSBM%20Facts.txt (convert external hex to dec: https://www.rapidtables.com/convert/number/hex-to-decimal.html)
+// HOW THE FUCK?
+// See ids in https://github.com/Achilles1515/20XX-Melee-Hack-Pack/blob/master/SSBM%20Facts.txt (convert external hex to dec: https://www.rapidtables.com/convert/number/hex-to-decimal.html)
+var charId = 15; // any=null, falco=15 
 var minimumComboPercent = 45; // this decides the threshold for combos
 var originalMin = minimumComboPercent; // we use this to reset the threshold
 
