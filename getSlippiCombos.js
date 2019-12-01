@@ -17,7 +17,8 @@ const fdCGers = [9, 12, 13, 22]; // Marth, Peach, Pikachu, and Doc // These are 
 
 const filterByNames = [] // add names as strings to this array (checks both netplay name and nametags). `["Nikki", "Metonym", "metonym"]`
 
-var minimumComboPercent = 35; // this decides the threshold for combos
+var charId = 15; // falco see ids in https://github.com/Achilles1515/20XX-Melee-Hack-Pack/blob/master/SSBM%20Facts.txt (convert external hex to dec: https://www.rapidtables.com/convert/number/hex-to-decimal.html)
+var minimumComboPercent = 45; // this decides the threshold for combos
 var originalMin = minimumComboPercent; // we use this to reset the threshold
 
 // Removal Statistics
@@ -62,6 +63,9 @@ function filterCombos(combos, settings, metadata) {
         let chaingrab = false;
         minimumComboPercent = originalMin;
         let player = _.find(settings.players, (player) => player.playerIndex === combo.playerIndex);
+        if (player.characterId !== null && player.characterId === charId) {
+        	return false;
+        }
         if (filterByNames.length > 0) {
             var matches = []
             _.each(filterByNames, (filterName) => {
@@ -97,9 +101,9 @@ function filterCombos(combos, settings, metadata) {
         const largeSingleHit = _.some(combo.moves, ({ damage }) => damage / totalDmg >= .8);
 
         if (wobbled) numWobbles++;
-        if (chaingrab) numCG++;
+        //if (chaingrab) numCG++;
         if (player.characterId === 15 && !threshold && (combo.endPercent - combo.startPercent) > originalMin) puffMiss++;
-        return !wobbled && !chaingrab && !largeSingleHit && combo.didKill && threshold;
+        return !wobbled && threshold; // && !chaingrab && !largeSingleHit && combo.didKill
     });
 }
 
@@ -156,7 +160,7 @@ function getCombos() {
             console.log(`File ${i + 1} | ${file} is bad`);
         }
     });
-    dolphin.queue = shuffle(dolphin.queue);
+    // dolphin.queue = shuffle(dolphin.queue);
     fs.writeFileSync("./combos.json", JSON.stringify(dolphin));
     console.log(`${badFiles} bad file(s) ignored`);
     console.log(`${numCPU} game(s) with CPUs removed`);

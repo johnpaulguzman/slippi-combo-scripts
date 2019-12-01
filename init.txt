@@ -1,0 +1,4 @@
+cd /c/Users/guzma/Music/node-v13.1.0-win-x64/slippi-combo-scripts
+PATH=${PATH}:/c/Users/guzma/Music/node-v13.1.0-win-x64/node-v13.1.0-win-x64:'/c/Users/guzma/AppData/Roaming/Slippi Desktop App/dolphin'
+alias generate='node getSlippiCombos.js'
+alias combo='Dolphin.exe -i combos.json'
